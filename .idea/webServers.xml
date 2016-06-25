@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3e700220-c507-424a-adb5-238fb6f42b61" name="qcloud" url="http://182.254.151.64">
+        <fileTransfer host="182.254.151.64" port="22" rootFolder="/home/wwwroot/ml.jsoncool.com/" accessType="SFTP" username="root">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
