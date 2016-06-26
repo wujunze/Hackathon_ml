@@ -14,9 +14,12 @@ var $html = $('html');
 var $body = $('body');
 var UA_obj; // 全局设备判断和浏览器识别
 var resources = [ // 需要预加载的资源
-    'video/videoBg.mp4', //视频地址, 必须为第一个
+    // 'video/videoBg.mp4', //视频地址, 必须为第一个
+    // 'video/video_low.mp4', //视频地址, 必须为第一个
+    'video/video_middle.mp4', //视频地址, 必须为第一个
     'video/videoBgPoster.jpg', // 视频预览图，必须为第二个
-    // 'video/video.mp3',
+    'video/video.mp3',
+    // 'video/14_Just_Older.wav'
     // 'img/title6.png',
     // 'img/indexBuilding.png',
     // 'img/indexCloud.png',
@@ -121,12 +124,15 @@ var XHNA_INDEX = {
                 height: _this.sizeObj.$windowHeight
             });
 
+        var imgMarginTopHeight = (_this.sizeObj.$windowHeight * 0.8);
+        var imgMarginTopWidth = (imgMarginTopHeight * 560 / 840);
+        // console.log(imgMarginTopWidth);
+
         _this.$index_navBox_img
             .css({
-                'margin-left': -_this.$index_navBox_img.width() * 0.5,
-                'margin-top': -_this.$index_navBox_img.height() * 0.5
-
-            })
+                'margin-left': -Math.round(imgMarginTopWidth * 0.5),
+                'margin-top': -Math.round(imgMarginTopHeight * 0.5)
+            });
 
         if (_this.videoJplayer !== undefined) {
             $('#jquery_jplayer_1').jPlayer('option', {
@@ -192,9 +198,15 @@ var XHNA_INDEX = {
                 // (isIpad ? '<div class="jp-play videoBgPoster" role="button" tabindex="0" onClick="$(this).hide();"><div class="iconPlay"></div></div>' : '') +
                 // '<button class="jp-play" role="button" tabindex="0" style="position:absolute;z-index:9999;left:50%;bottom:10px;width:100px;margin-left:-50px;display:block;">play</button>' + // 调试用
                 '</div>' +
+                '<div id="jp_container_2" class="jp-video">' +
+                '<div id="jquery_jplayer_2" class="jp-jplayer"></div>' +
+                // (isIpad ? '<div class="jp-play videoBgPoster" role="button" tabindex="0" onClick="$(this).hide();"><div class="iconPlay"></div></div>' : '') +
+                // '<button class="jp-play" role="button" tabindex="0" style="position:absolute;z-index:9999;left:50%;bottom:10px;width:100px;margin-left:-50px;display:block;">play</button>' + // 调试用
+                '</div>' +
                 '</div>';
 
-            _this.$mainBox.show().append(temp);
+            _this.$mainBox.append(temp);
+
             // 初始化indexNav的位置
             _this.indexNavOff();
 
@@ -206,7 +218,7 @@ var XHNA_INDEX = {
             // _this.indexBgInit();
 
             // 初始化jplayer
-            _this.videoJplayer = _this.$jplayer_id.jPlayer({
+            _this.$jplayer_id.jPlayer({
                 swfPath: "lib",
                 supplied: "webmv, ogv, m4v, mp3",
                 size: _this.videSize(),
@@ -217,6 +229,7 @@ var XHNA_INDEX = {
                 remainingDuration: true,
                 toggleDuration: true,
                 wmode: "window", // 让古代firefox浏览器支持flash播放
+                volume: 0,
                 ready: function() {
                     // var hash = location.hash;
                     // var cons = (hash === '#novideo');
@@ -247,17 +260,8 @@ var XHNA_INDEX = {
                     var cons = (time > 18);
                     if (cons) {
                         // if (time > 9.5) { // 调试用
-                        _this.videoOff();
                         // $(this).jPlayer("pause");
-
-                        // _this.$jplayer_id.jPlayer("setMedia", {
-                        //     // title: "蒙娜丽莎的微笑",
-                        //     mp3: 'video/video.mp3'
-                        //     // poster: resources[1]
-                        // }, 21.0);
-                        // cons = true;
-
-                        // $(this).jPlayer("play", time);
+                        _this.videoOff();
                     }
                 },
                 // ended: function() {
@@ -267,49 +271,32 @@ var XHNA_INDEX = {
                 // },
             });
 
-            // _this.$indexNav
-            //     .on('click',
-            //         'a:eq(0)',
-            //         function(e) {
-            //             e.preventDefault();
-            //
-            //             var href = $(this).attr('href');
-            //             // var _this = this;
-            //
-            //             console.log('aa');
-            //
-            //             _this.$indexNav.velocity({
-            //                 scale: 6,
-            //                 rotateY: '150deg',
-            //                 translateZ: '-1800px',
-            //                 rotateX: '-120deg',
-            //             }, {
-            //                 duration: 2000,
-            //                 begin: function() {
-            //                     console.log('begin');
-            //                 },
-            //                 complete: function() {
-            //
-            //                     console.log('complete');
-            //
-            //                     _this.$mainBox.velocity({
-            //                         height: 0,
-            //                     }, {
-            //                         duration: 800,
-            //                         complete: function() {
-            //                             console.log('ccc');
-            //
-            //                             window.location.href = href;
-            //                         }
-            //
-            //                     });
-            //                 }
-            //             });
-            //
-            //             console.log('return');
-            //
-            //
-            //         });
+
+            $('#jquery_jplayer_2').jPlayer({
+                swfPath: "lib",
+                supplied: "webmv, ogv, m4v, mp3",
+                size: {
+                    width: 0,
+                    height: 0
+                },
+                useStateClassSkin: true,
+                autoBlur: false,
+                smoothPlayBar: true,
+                keyEnabled: true,
+                remainingDuration: true,
+                toggleDuration: true,
+                wmode: "window", // 让古代firefox浏览器支持flash播放
+                volume: 1,
+                ready: function() {
+                    $(this).jPlayer("setMedia", {
+                        mp3: resources[2]
+                    });
+                },
+                ended: function() {
+                    // $(this).jPlayer("pause");
+                    $(this).jPlayer("play");
+                }
+            });
 
             _this.$videoClose
                 .on('click', function() {
@@ -321,123 +308,17 @@ var XHNA_INDEX = {
         var _this = this;
         _this.$videoClose.hide();
         _this.videoOffTime = 4000;
-        _this.$videoBox.velocity("fadeOut", {
-            duration: _this.videoOffTime,
-            // daley: 0.3,
-            complete: function() {
-                _this.$mainBox.show();
-                // _this.$jplayer_id.jPlayer("pause");
-            }
-        });
+        _this.$videoBox
+            .velocity("fadeOut", {
+                duration: _this.videoOffTime,
+                // daley: 0.3,
+                complete: function() {
+                    _this.$mainBox.show();
+                    // _this.$jplayer_id.jPlayer("pause");
+                }
+            });
         _this.indexNavOn();
     },
-    // indexBgInit: function() {
-    //     // var _this = this;
-    //     // var dom =
-    //     //     '<div class="indexBg">' +
-    //     //     '<img class="indexBuilding" width="auto" height="1003" src="img/indexBuilding.png">' +
-    //     //     '<img class="indexCloud" width="auto" height="786" src="img/indexCloud.png">' +
-    //     //     '<img class="indexCloud2" width="auto" height="786" src="img/indexCloud2.png">' +
-    //     //     '</div>';
-    //     // _this.$indexNav.after(dom);
-    //     // if (!_this.$indexBg) {
-    //     //     _this.$indexBg = _this.$mainBox.find('.indexBg');
-    //     //     _this.$indexBuilding = _this.$mainBox.find('.indexBuilding');
-    //     //     _this.$indexCloud = _this.$mainBox.find('.indexCloud');
-    //     //     _this.$indexCloud2 = _this.$mainBox.find('.indexCloud2');
-    //     // }
-    //     // _this.indexBgSize();
-    //     // _this.indexCloudAni();
-    //     // _this.indexCloudAni2();
-    // },
-    // indexBgSize: function() {
-    //     var _this = this;
-    //     _this.$indexBg
-    //         .css({
-    //             width: _this.sizeObj.$windowWidth,
-    //             height: _this.sizeObj.$windowHeight
-    //         });
-    //
-    //     _this.$indexBuilding
-    //         .css({
-    //             left: Math.round(_this.sizeObj.$windowWidth * 109 / 1920),
-    //             height: Math.round(_this.sizeObj.$windowHeight * 1003 / 1200),
-    //         });
-    //
-    //     _this.$indexCloud
-    //         .css({
-    //             left: 0,
-    //             height: Math.round(_this.sizeObj.$windowHeight * 786 / 1200),
-    //             bottom: Math.round(_this.sizeObj.$windowHeight * 414 / 1200)
-    //         });
-    //     _this.$indexCloudWidth = Math.round(_this.sizeObj.$windowWidth * 1281 / 1920);
-    //
-    //     _this.$indexCloud2
-    //         .css({
-    //             left: -_this.$indexCloudWidth,
-    //             height: Math.round(_this.sizeObj.$windowHeight * 501 / 1200),
-    //             bottom: Math.round(_this.sizeObj.$windowHeight * 600 / 1200)
-    //         });
-    // },
-    // : function() {
-    //     var _this = this;
-    //     _this.indexCloudAni();
-    //     _this.indexCloudAni2();
-    // },
-    // indexCloudAni: function() {
-    //     var _this = this;
-    //     _this.$indexCloud
-    //         .velocity({
-    //             // scale: 0.8,
-    //             translateX: '+' + _this.sizeObj.$windowWidth - 0 + _this.$indexCloudWidth + 'px',
-    //             opacity: 0.4
-    //         }, {
-    //             duration: 1000 * 60 * 3,
-    //             easing: 'linear',
-    //             loop: false,
-    //             complete: function() {
-    //                 $(this).velocity({
-    //                     // scale: 1,
-    //                     translateX: -_this.$indexCloudWidth,
-    //                     opacity: 1
-    //                 }, {
-    //                     duration: 0,
-    //                     // delay: 2000,
-    //                     complete: function() {
-    //                         // console.log('indexCloudAni');
-    //                         _this.indexCloudAni();
-    //                     }
-    //                 });
-    //             }
-    //         });
-    // },
-    // indexCloudAni2: function() {
-    //     var _this = this;
-    //     _this.$indexCloud2
-    //         .velocity({
-    //             // scale: 0.8,
-    //             translateX: '+' + _this.sizeObj.$windowWidth - 0 + _this.$indexCloudWidth + 'px',
-    //             // opacity: 0.4
-    //         }, {
-    //             duration: 1000 * 60 * 3,
-    //             easing: 'linear',
-    //             loop: false,
-    //             complete: function() {
-    //                 $(this).velocity({
-    //                     // scale: 1,
-    //                     translateX: -(Math.round(_this.$indexCloudWidth * 1.3)),
-    //                     // opacity: 1
-    //                 }, {
-    //                     duration: 0,
-    //                     // delay: 2000,
-    //                     complete: function() {
-    //                         // console.log('indexCloudAni2');
-    //                         _this.indexCloudAni2();
-    //                     }
-    //                 });
-    //             }
-    //         });
-    // },
     indexNavOn: function() {
         var _this = this;
         _this.$indexNav
@@ -450,9 +331,13 @@ var XHNA_INDEX = {
             }, {
                 duration: _this.videoOffTime,
                 complete: function() {
-                    // console.log('aaa');
-                    window.location.href = 'http://ml.jsoncool.com/lx/client/';
-                    // window.location.href = 'client';
+                    if (!_this.openWindowHandler) {
+                        // window.location.href = 'http://ml.jsoncool.com/lx/client/';
+                        // window.location.href = 'client';
+                        console.log('indexNavOn complete');
+                        _this.openWindowHandler = window.open('http://ml.jsoncool.com/lx/client/', true);
+                        $('#jquery_jplayer_1').jPlayer('stop');
+                    }
                 }
             });
 
@@ -554,8 +439,11 @@ $(function() {
         .fadeIn(function() {
             $(this).on('click', function() {
                 // $('.blur').removeClass('blur');
-                $('#loadingMask').fadeOut();
-                $('#jquery_jplayer_1').jPlayer('play');
+                $('#loadingMask').fadeOut(function() {
+                    $('#mainBox').fadeIn();
+                });
+                $('#jquery_jplayer_1').jPlayer('play', 0);
+                $('#jquery_jplayer_2').jPlayer('play', 0);
             });
         });
 
