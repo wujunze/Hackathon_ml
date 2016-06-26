@@ -332,10 +332,10 @@ var XHNA_INDEX = {
                 duration: _this.videoOffTime,
                 complete: function() {
                     if (!_this.openWindowHandler) {
-                        // window.location.href = 'http://ml.jsoncool.com/lx/client/';
+                        window.location.href = 'http://ml.jsoncool.com/lx/client/';
                         // window.location.href = 'client';
-                        console.log('indexNavOn complete');
-                        _this.openWindowHandler = window.open('http://ml.jsoncool.com/lx/client/', true);
+                        // console.log('indexNavOn complete');
+                        // _this.openWindowHandler = window.open('http://ml.jsoncool.com/lx/client/', true);
                         $('#jquery_jplayer_1').jPlayer('stop');
                     }
                 }
