@@ -1,0 +1,64 @@
+/* tips */
+.tips {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.tipsIn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    margin-left: -210px;
+    height: 500px;
+    margin-top: -260px;
+    padding: 20px;
+    background: #FFF;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+.tips img { background-color: #CCC; margin-top: 20px; }
+.tips .title,
+.tips span {
+    color: #333 !important;
+    font-size: 18px;
+    line-height: 28px;
+}
+.tips .title { padding: 20px 0; }
+.tips a {
+    /*position: absolute;*/
+    /*top: 320px;*/
+    /*left: 50%;*/
+    /*width: 160px;*/
+    /*margin-left: -80px;*/
+    height: 50px;
+    line-height: 50px;
+    border: #CCC 1px solid;
+    text-align: center;
+    font-size: 22px;
+    border-radius: 8px;
+    margin: 0 atuo;
+    background-color: #FFF;
+    color: #000;
+    /*box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);;*/
+    cursor: pointer !important;
+    font-weight: bold;
+    display: inline-block;
+    padding: 0 20px;
+
+    border: rgba(14, 81, 167, 1) 1px solid;
+    color: rgba(14, 81, 167, 1) !important;
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    text-decoration: none;
+
+}
+.tips a:hover {
+    border: rgba(14, 81, 167, 1) 1px solid;
+    color: rgba(255, 255, 255, 1) !important;
+    background-color: rgba(14, 81, 167, 0.6) !important;
+}
