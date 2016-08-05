@@ -27,15 +27,15 @@
         /* Joining channel */
         (function initAgoraRTC() {
             client.init(key, function (obj) {
-//              console.log("AgoraRTC client initialized");
+                console.log("AgoraRTC client initialized");
                 client.join(key, channel, undefined, function(uid) {
-//                  console.log("User " + uid + " join channel successfully");
-//                  console.log("Timestamp: " + Date.now());
+                    console.log("User " + uid + " join channel successfully");
+                    console.log("Timestamp: " + Date.now());
                     localStream = initLocalStream(uid);
                     lastLocalStreamId = localStream.getId();
                 });
             }, function(err) {
-//              console.log(err);
+                console.log(err);
                 if (err) {
                     switch(err.reason) {
                         case 'CLOSE_BEFORE_OPEN':
@@ -159,7 +159,7 @@
             if(localStream) {
                 // local stream exist already
                 client.unpublish(localStream, function(err) {
-//                  console.log("Unpublish failed with error: ", err);
+                    console.log("Unpublish failed with error: ", err);
                 });
                 localStream.close();
             }
@@ -176,8 +176,8 @@
             localStream.setVideoProfile(videoProfile);
 
             localStream.init(function() {
-//              console.log("Get UserMedia successfully");
-//              console.log(localStream);
+                console.log("Get UserMedia successfully");
+                console.log(localStream);
 
                 var size = calculateVideoSize();
                 if (remoteStreamList.length === 0) {
@@ -193,8 +193,8 @@
                 toggleFullscreenButton(false);
                 toggleExpensionButton(false);
                 client.publish(localStream, function (err) {
-//                  console.log("Timestamp: " + Date.now());
-//                  console.log("Publish local stream error: " + err);
+                    console.log("Timestamp: " + Date.now());
+                    console.log("Publish local stream error: " + err);
                 });
                 client.on('stream-published');
 
@@ -202,7 +202,7 @@
                 $("div[id^='bar_']").remove();
 
             }, function(err) {
-//              console.log("Local stream init failed.", err);
+                console.log("Local stream init failed.", err);
                 displayInfo("Please check camera or audio devices on your computer, then try again.");
                 $(".info").append("<div class='back'><a href='index.html'>Back</a></div>");
             });
@@ -221,7 +221,7 @@
                     var toRemove = remoteStreamList.splice(index, 1);
                     if (toRemove.length === 1) {
                         //delete toRemove[1];
-//                      console.log("stream stopping..." + toRemove[0].stream.getId());
+                        console.log("stream stopping..." + toRemove[0].stream.getId());
                         toRemove[0].stream.stop();
                         return true;
                     }
@@ -504,37 +504,37 @@
         function subscribeStreamEvents() {
             client.on('stream-added', function (evt) {
                 var stream = evt.stream;
-//              console.log("New stream added: " + stream.getId());
-//              console.log("Timestamp: " + Date.now());
-//              console.log("Subscribe ", stream);
+                console.log("New stream added: " + stream.getId());
+                console.log("Timestamp: " + Date.now());
+                console.log("Subscribe ", stream);
                 client.subscribe(stream, function (err) {
-//                  console.log("Subscribe stream failed", err);
+                    console.log("Subscribe stream failed", err);
                 });
             });
 
             client.on('peer-leave', function(evt) {
-//              console.log("Peer has left: " + evt.uid);
-//              console.log("Timestamp: " + Date.now());
-//              console.log(evt);
+                console.log("Peer has left: " + evt.uid);
+                console.log("Timestamp: " + Date.now());
+                console.log(evt);
                 showStreamOnPeerLeave(evt.uid);
                 //updateRoomInfo();
             });
 
             client.on('stream-subscribed', function (evt) {
                 var stream = evt.stream;
-//              console.log("Got stream-subscribed event");
-//              console.log("Timestamp: " + Date.now());
-//              console.log("Subscribe remote stream successfully: " + stream.getId());
-//              console.log(evt);
+                console.log("Got stream-subscribed event");
+                console.log("Timestamp: " + Date.now());
+                console.log("Subscribe remote stream successfully: " + stream.getId());
+                console.log(evt);
                 showStreamOnPeerAdded(stream);
                 //updateRoomInfo();
             });
 
             client.on("stream-removed", function(evt) {
                 var stream = evt.stream;
-//              console.log("Stream removed: " + evt.stream.getId());
-//              console.log("Timestamp: " + Date.now());
-//              console.log(evt);
+                console.log("Stream removed: " + evt.stream.getId());
+                console.log("Timestamp: " + Date.now());
+                console.log(evt);
                 showStreamOnPeerLeave(evt.stream.getId());
                 //updateRoomInfo();
             });

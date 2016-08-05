@@ -29,14 +29,8 @@ if (!$username) {
 }
 
 if (in_array($username, $user_list)) {
-
-    if (is_player_enough($user_list)) {
-        echo json_encode(['status' => 'playing']);
-        exit();
-    } else {
-        echo json_encode(['status' => 'waiting', 'ready_num' => count($user_list)]);
-        exit();
-    }
+    echo json_encode(['status' => 'waiting']);
+    exit();
 }
 
 if (is_player_enough($user_list)) {
@@ -50,7 +44,7 @@ if (is_player_enough($user_list)) {
     echo json_encode(['status' => 'playing']);
     exit();
 }
-echo json_encode(['status' => 'waiting', 'ready_num' => count($user_list)]);
+echo json_encode(['status' => 'waiting']);
 
 /**
  * 校验人数是否已够
@@ -59,7 +53,7 @@ echo json_encode(['status' => 'waiting', 'ready_num' => count($user_list)]);
  *                           false 没够
  */
 function is_player_enough($user_list) {
-    if (count($user_list) >= 4) {
+    if (count($user_list) >= 2) {
         return true;
     }
     return false;
