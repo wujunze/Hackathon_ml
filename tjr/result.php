@@ -27,7 +27,7 @@ if ($username || $profile_link) {
         'profile_link' => $profile_link,
     ];
 
-    // file_put_contents($user_list_path, json_encode([]));
+    file_put_contents($user_list_path, json_encode([]));
 } else {
     $result = [
         'status' => 'playing',

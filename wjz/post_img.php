@@ -25,21 +25,24 @@ if(empty($_REQUEST['name'])){
     exit;
 }
 
-if(empty($_FILES)){
+if(empty($_REQUEST['pic'])){
     echo json_encode(
         array(
-            'status' => 'file_is_empty',
+            'status' => 'pic_is_empty',
             'msg'    => '文件为空',
         )
     );
     exit;
 }
 
-include'../core/file_uploader.php';
+/*include'../core/file_uploader.php';
 $file_uploader = new FileUpload();
 $name = $_REQUEST['name'];
 $file_uploader->upload('pic');
-$pic_url =  'http://ml.jsoncool.com/img/'.$file_uploader->getFileName();
+$pic_url =  'http://ml.jsoncool.com/img/'.$file_uploader->getFileName();*/
+
+$name = $_REQUEST['name'];
+$pic_url = $_REQUEST['pic'];
 $result = array(
     'name' => $name,
     'is_laugh' => 1,
