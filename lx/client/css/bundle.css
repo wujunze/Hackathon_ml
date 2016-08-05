@@ -1890,14 +1890,6 @@ body:after {
 .fa-hourglass-o:before {
     content: "\f250"
 }
-#bjy-num {
-    color: #CCC !important;
-    font-size: 10px;
-    position: absolute;
-    right: 2px;
-    bottom: 0;
-    text-align: right;
-}
 .fa-hourglass-1:before, .fa-hourglass-start:before {
     content: "\f251"
 }
@@ -10119,4 +10111,12 @@ video:-webkit-full-screen {
 }
 #username, #room-name {
     color: #666 !important;
+}
+#bjy-num {
+    color: #CCC !important;
+    font-size: 10px;
+    position: absolute;
+    right: 2px;
+    bottom: 0;
+    text-align: right;
 }

@@ -35,9 +35,11 @@ $(function(){
         cookie.set('room', room);
     });
 
-    var cookieName = cookie.get('name');
-    var cookieRoom = cookie.get('room');
+    var cookieName = get('name');
+    var cookieRoom = get('room');
 
-    $username.attr('value', cookieName);
-    $roomName.attr('value', cookieRoom);
+    // if (cookieName !== "" && cookieRoom !== "") {
+        $username.attr('value', cookieName);
+        $roomName.attr('value', cookieRoom);
+    // }
 });
